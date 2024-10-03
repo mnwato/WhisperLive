@@ -1,0 +1,8 @@
+
+docker build -t whisper-gpu -f docker/Dockerfile.gpu .
+
+docker run --rm -it --gpus all -p 9090:9090 whisper-gpu
+
+docker run --rm -it --gpus all -p 9090:9090 -v /home/user/najmi/models:/app/models whisper-gpu
+
+docker run -it --gpus all -p 9090:9090 ghcr.io/collabora/whisperlive-gpu:latest
