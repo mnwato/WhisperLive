@@ -1,0 +1,6 @@
+venv_client
+venv_server
+
+notes.txt
+
+*.pyc
