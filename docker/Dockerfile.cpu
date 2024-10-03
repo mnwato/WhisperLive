@@ -22,4 +22,4 @@ RUN pip install --no-cache-dir -r server.txt && rm server.txt
 COPY whisper_live /app/whisper_live
 COPY run_server.py /app
 
-CMD ["python", "run_server.py"]
+CMD ["python", "run_server.py", "--port", "9090", "-b", "faster_whisper", "-fw", "models/faster-whisper-large-v3"]
