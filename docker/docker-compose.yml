@@ -1,0 +1,28 @@
+# NOTE: arm images haven't been tested
+services:
+  whisperlive:
+    image: ghcr.io/collabora/whisperlive-gpu:latest
+    container_name: whisperlive
+    platform: linux/amd64
+    # environment:
+    #   - PULSE_SERVER=host.docker.internal
+    volumes:
+      - /home/user/najmi/models:/root/.cache/huggingface
+      - ./assets:/app/assets
+      # - ~/.config/pulse/cookie:/root/.config/pulse/cookie
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - 9090:9090
+    command:
+      - sh
+      - -cx
+      - |
+        python3 run_server.py --backend faster_whisper \
+                              -fw "/root/.cache/huggingface/faster-whisper-large-v3"
